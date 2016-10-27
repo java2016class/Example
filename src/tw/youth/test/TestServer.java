@@ -8,8 +8,8 @@ import tw.youth.java2016.Server;
 
 public class TestServer {
 
-	//±Mªù¨Ï¥Î¨Ó´ú¸Õclass¬O§_¥¿±`ªºTestcase(´ú¸Õ®×¨Ò)
-	//¦ı¦b³o¸Ì´ú¸ÕServlet·|¥¢®Ä¡A¤×¨ä¬O¦³¾É¤Jjarªº®É­Ô
+	//å°ˆé–€ä½¿ç”¨ä¾†æ¸¬è©¦classæ˜¯å¦æ­£å¸¸çš„Testcase(æ¸¬è©¦æ¡ˆä¾‹)
+	//ä½†åœ¨é€™è£¡æ¸¬è©¦Servletæœƒå¤±æ•ˆï¼Œå°¤å…¶æ˜¯æœ‰å°å…¥jarçš„æ™‚å€™
 	@Test
 	public void test() throws SQLException {
 		// fail("Not yet implemented");

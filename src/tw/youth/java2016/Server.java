@@ -11,22 +11,22 @@ public class Server {
 
 	public Server() {
 		try {
-			// ´M§äMysqlÅX°Ê
-			// ³o¸Ìªºmysql-connector-java-5.1.39.jarÅX°Ê­n
-			// ¦Û¦æ¤â°Ê©ñ¤J WebContent¸ê®Æ§¨ >> WEB-INF¸ê®Æ§¨ >> lib¸ê®Æ§¨¤º
+			// å°‹æ‰¾Mysqlé©…å‹•
+			// é€™è£¡çš„mysql-connector-java-5.1.39.jaré©…å‹•è¦
+			// è‡ªè¡Œæ‰‹å‹•æ”¾å…¥ WebContentè³‡æ–™å¤¾ >> WEB-INFè³‡æ–™å¤¾ >> libè³‡æ–™å¤¾å…§
 			Class.forName("com.mysql.jdbc.Driver");
 
-			// ³s½uMysql¡A«e­±¬Oºô§}¡A«á­±¨Ì§Ç¬O±b¸¹¡B±K½X
+			// é€£ç·šMysqlï¼Œå‰é¢æ˜¯ç¶²å€ï¼Œå¾Œé¢ä¾åºæ˜¯å¸³è™Ÿã€å¯†ç¢¼
 			conn = DriverManager.getConnection("jdbc:mysql://localhost", "odise", "116025");
 
-			// «Ø¥ß¸ê®Æ®w¡A³o»yªk³]©w¬°"¦pªG¸ê®Æ®w¤£¦s¦b´N«Ø¥ß"
+			// å»ºç«‹è³‡æ–™åº«ï¼Œé€™èªæ³•è¨­å®šç‚º"å¦‚æœè³‡æ–™åº«ä¸å­˜åœ¨å°±å»ºç«‹"
 			conn.createStatement().executeUpdate("CREATE SCHEMA IF NOT EXISTS example");
 
-			//«Ø¥ß¸ê®Æªí¡A³o»yªk³]©w¬°"¦pªG¸ê®Æªí¤£¦s¦b´N«Ø¥ß"
+			//å»ºç«‹è³‡æ–™è¡¨ï¼Œé€™èªæ³•è¨­å®šç‚º"å¦‚æœè³‡æ–™è¡¨ä¸å­˜åœ¨å°±å»ºç«‹"
 			conn.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS example.login ("
 					+ "  USERNAME VARCHAR(20) NULL," + "  PASSWORD VARCHAR(20) NULL)");
 
-			//³o¸Ì¹w¥ı¦b¸ê®Æªí¤º«Ø¥ß¤@­Ó¨Ï¥ÎªÌ¡Aif±Ô­z¤º¤@¼Ë¬OÀË¬d¨Ï¥ÎªÌ¦s¤£¦s¦b¡A¤£¦s¦b¤~·|«Ø¥ß
+			//é€™è£¡é å…ˆåœ¨è³‡æ–™è¡¨å…§å»ºç«‹ä¸€å€‹ä½¿ç”¨è€…ï¼Œifæ•˜è¿°å…§ä¸€æ¨£æ˜¯æª¢æŸ¥ä½¿ç”¨è€…å­˜ä¸å­˜åœ¨ï¼Œä¸å­˜åœ¨æ‰æœƒå»ºç«‹
 			String[] user = { "root", "123456" };
 			if (!chkUser(user[0]))
 				createUser(user);
@@ -38,12 +38,12 @@ public class Server {
 		}
 	}
 
-	//ÀË¬dconn³s½u¬O§_¦¨¥\«Ø¥ß¡A³s½u¥¢±Ñ«h·|±o¨ìnull
+	//æª¢æŸ¥conné€£ç·šæ˜¯å¦æˆåŠŸå»ºç«‹ï¼Œé€£ç·šå¤±æ•—å‰‡æœƒå¾—åˆ°null
 	public boolean chkServer() throws SQLException {
 		return conn != null;
 	}
 
-	//ÀË¬d¨Ï¥ÎªÌ¬O§_¦s¦b?
+	//æª¢æŸ¥ä½¿ç”¨è€…æ˜¯å¦å­˜åœ¨?
 	public boolean chkUser(String user) {
 		PreparedStatement ps;
 		try {
@@ -63,7 +63,7 @@ public class Server {
 		}
 	}
 
-	//ÀË¬d±b¸¹±K½X¬O§_¥¿½T?
+	//æª¢æŸ¥å¸³è™Ÿå¯†ç¢¼æ˜¯å¦æ­£ç¢º?
 	public boolean chkLogin(String[] user) {
 
 		PreparedStatement ps;
@@ -73,7 +73,7 @@ public class Server {
 			ps.setString(1, user[0]);
 			ResultSet rs = ps.executeQuery();
 			System.out.println("chkLogin");
-			//¼´¨Ï¥ÎªÌ¨ÃÀË¬d±K½X¡A³o­Ó°j°é­ì¥»³]­p¨Ó¼´¦h­Ó¸ê®Æ
+			//æ’ˆä½¿ç”¨è€…ä¸¦æª¢æŸ¥å¯†ç¢¼ï¼Œé€™å€‹è¿´åœˆåŸæœ¬è¨­è¨ˆä¾†æ’ˆå¤šå€‹è³‡æ–™
 			while (rs.next()) {
 				if (rs.getString(1).equals(user[0]) && rs.getString(2).equals(user[1])) {
 					chk = true;
@@ -87,7 +87,7 @@ public class Server {
 		}
 	}
 
-	//«Ø¥ß¨Ï¥ÎªÌ
+	//å»ºç«‹ä½¿ç”¨è€…
 	public boolean createUser(String[] user) {
 		PreparedStatement ps;
 		try {

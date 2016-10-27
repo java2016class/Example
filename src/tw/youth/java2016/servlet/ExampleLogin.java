@@ -31,11 +31,11 @@ public class ExampleLogin extends HttpServlet {
 	 *      response)
 	 */
 
-	// doGet ·|¦bºô§}¤WÅã¥Ü¿é¤Jªº¸ê®Æ ©Ò¥H¶Ç»¼­«­n¸ê®Æ®É ¤£«ØÄ³¨Ï¥Î
+	// doGet æœƒåœ¨ç¶²å€ä¸Šé¡¯ç¤ºè¼¸å…¥çš„è³‡æ–™ æ‰€ä»¥å‚³éé‡è¦è³‡æ–™æ™‚ ä¸å»ºè­°ä½¿ç”¨
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//ª½±µÅª¨úServlet®É·|¨q³o¬q
+		//ç›´æ¥è®€å–Servletæ™‚æœƒç§€é€™æ®µ
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -44,24 +44,24 @@ public class ExampleLogin extends HttpServlet {
 	 *      response)
 	 */
 
-	// ÁôÂÃºô§}¶Ç»¼ªº°Ñ¼Æ
+	// éš±è—ç¶²å€å‚³éçš„åƒæ•¸
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
 
-		// ³]©wÂ^¨úªººô­¶½s½X¬°UTF-8¡A»Pºô­¶ºİ½s½X¤@­P´N¤£·|¦³¶Ã½X°İÃD
+		// è¨­å®šæ“·å–çš„ç¶²é ç·¨ç¢¼ç‚ºUTF-8ï¼Œèˆ‡ç¶²é ç«¯ç·¨ç¢¼ä¸€è‡´å°±ä¸æœƒæœ‰äº‚ç¢¼å•é¡Œ
 		request.setCharacterEncoding("UTF-8");
 
-		// Â^¨úºô­¶¶Ç»¼¨Óªºuser¸òpass°Ñ¼Æ
+		// æ“·å–ç¶²é å‚³éä¾†çš„userè·Ÿpassåƒæ•¸
 		String[] user = { request.getParameter("user"), request.getParameter("pass") };
 
-		// ³]©wÂà¶Ç»¼µ¹¨ä¥Lºô­¶ªº°Ñ¼Æ¡A³o¸Ì³]©wÄİ©Ê­È§t¦³user¸òpass°Ñ¼Æ
+		// è¨­å®šè½‰å‚³éçµ¦å…¶ä»–ç¶²é çš„åƒæ•¸ï¼Œé€™è£¡è¨­å®šå±¬æ€§å€¼å«æœ‰userè·Ÿpassåƒæ•¸
 		request.setAttribute("user", user[0]);
 		request.setAttribute("pass", user[1]);
 
-		// ¨Ï¥ÎÅçÃÒ¨Ï¥ÎªÌ¥\¯à¡A½T»{±b¸¹±K½X¬O§_¥¿½T?
-		// ­Y¥¿½T´N¶Ç»¼µ¹success.jspºô­¶¨Ã¸õÂà¡A­Y¤£¥¿½T´N¶Ç»¼µ¹failure.jspºô­¶¨Ã¸õÂà
+		// ä½¿ç”¨é©—è­‰ä½¿ç”¨è€…åŠŸèƒ½ï¼Œç¢ºèªå¸³è™Ÿå¯†ç¢¼æ˜¯å¦æ­£ç¢º?
+		// è‹¥æ­£ç¢ºå°±å‚³éçµ¦success.jspç¶²é ä¸¦è·³è½‰ï¼Œè‹¥ä¸æ­£ç¢ºå°±å‚³éçµ¦failure.jspç¶²é ä¸¦è·³è½‰
 		if (server.chkLogin(user)) {
 			request.getRequestDispatcher("/success.jsp").forward(request, response);
 		} else {
