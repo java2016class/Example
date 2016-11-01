@@ -1,0 +1,10 @@
+  <servlet>
+  <servlet-name>Servlet04</servlet-name>
+  <servlet-class>tw.youth.java2016.servlet.Response</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>Servlet04</servlet-name>
+  <url-pattern>index.jsp</url-pattern>
+  </servlet-mapping>
+  
+  2.0版以前的servlet寫法
