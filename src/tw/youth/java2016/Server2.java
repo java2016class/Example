@@ -6,10 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Server {
+public class Server2 {
 	public static Connection conn;
 
-	static {//設定第一次存取class時會建立，第二次存取時不會重新建立
+	public Server2() {
+
 		try {
 			// 尋找Mysql驅動
 			// 這裡的mysql-connector-java-5.1.39.jar驅動要
@@ -18,24 +19,16 @@ public class Server {
 
 			// 連線Mysql，前面是網址，後面依序是帳號、密碼
 			conn = DriverManager.getConnection("jdbc:mysql://localhost", "odise", "116025");
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException : " + e.getMessage());
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
 
-	public Server() {
-
-		try {
 			// 建立資料庫，這語法設定為"如果資料庫不存在就建立"
 			conn.createStatement().executeUpdate("CREATE SCHEMA IF NOT EXISTS example");
 
 			// 建立資料表，這語法設定為"如果資料表不存在就建立"
 			conn.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS example.login ("
 					+ "  USERNAME VARCHAR(20) NULL," + "  PASSWORD VARCHAR(20) NULL)");
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException : " + e.getMessage());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
 
