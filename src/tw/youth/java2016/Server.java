@@ -5,11 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Server {
 	public static Connection conn;
 
-	static {//設定第一次存取class時會建立，第二次存取時不會重新建立
+	static {// 設定第一次存取class時會建立，第二次存取時不會重新建立
 		try {
 			// 尋找Mysql驅動
 			// 這裡的mysql-connector-java-5.1.39.jar驅動要
@@ -39,11 +40,16 @@ public class Server {
 			System.out.println(e.getMessage());
 		}
 
-		// 這裡預先在資料表內建立一個使用者，if敘述內一樣是檢查使用者存不存在，不存在才會建立
+		// 這裡預先在資料表內建立使用者，if敘述內一樣是檢查使用者存不存在，不存在才會建立
 		String[] user = { "root", "123456" };
+		String[] user2 = { "odise", "116025" };
+		String[] user3 = { "oxygen", "987654" };
 		if (!chkUser(user[0]))
 			createUser(user);
-
+		if (!chkUser(user2[0]))
+			createUser(user2);
+		if (!chkUser(user3[0]))
+			createUser(user3);
 	}
 
 	// 檢查conn連線是否成功建立，連線失敗則會得到null
@@ -111,4 +117,24 @@ public class Server {
 		return true;
 	}
 
+	public ArrayList<String> query(String value) {//模糊搜尋
+
+		try {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM example.login WHERE USERNAME LIKE ?");
+			ps.setObject(1, "%" + value + "%");
+			ResultSet rs = ps.executeQuery();
+			ArrayList<String> arr = new ArrayList<>();
+			while (rs.next()) {
+				arr.add(rs.getString(1));
+			}
+			return arr;
+		} catch (
+
+		SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+			return null;
+		}
+
+	}
 }

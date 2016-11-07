@@ -1,6 +1,8 @@
 package tw.youth.java2016.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +37,7 @@ public class ExampleLogin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//直接讀取Servlet時會秀這段
+		// 直接讀取Servlet時會秀這段
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -63,6 +65,11 @@ public class ExampleLogin extends HttpServlet {
 		// 使用驗證使用者功能，確認帳號密碼是否正確?
 		// 若正確就傳遞給success.jsp網頁並跳轉，若不正確就傳遞給failure.jsp網頁並跳轉
 		if (server.chkLogin(user)) {
+			ArrayList<String> arr = server.query("o");
+			for (String string : arr) {
+				System.out.println(string);
+			}
+			request.setAttribute("query", server.query("o")); // 模糊搜尋含有o字眼的資料
 			request.getRequestDispatcher("/success.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("/failure.jsp").forward(request, response);

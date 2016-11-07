@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,6 +12,8 @@
 		//承接從Servlet傳遞過來的參數
 		String user = request.getParameter("user");
 		String pass = request.getParameter("pass");
+		ArrayList<String> query = null;
+		query = (ArrayList<String>) request.getAttribute("query");
 	%>
 	<!-- 驗證使用者登入成功的畫面 -->
 	<h1>Login Success</h1>
@@ -20,5 +23,22 @@
 	<%=user%>
 	<br> pass =
 	<%=pass%>
+
+	<br>
+	<br>
+	<table border=1>
+		<tr align="center">
+			<td>USERNAME</td>
+		</tr>
+		<%
+			for (String str : query) {
+		%>
+		<tr>
+			<td align="center"><%=str%></td>
+		</tr>
+		<%
+			}
+		%>
+	</table>
 </body>
 </html>

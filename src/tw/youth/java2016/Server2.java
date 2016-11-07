@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Server2 {
 	public static Connection conn;
@@ -32,10 +33,16 @@ public class Server2 {
 			System.out.println(e.getMessage());
 		}
 
-		// 這裡預先在資料表內建立一個使用者，if敘述內一樣是檢查使用者存不存在，不存在才會建立
+		// 這裡預先在資料表內建立使用者，if敘述內一樣是檢查使用者存不存在，不存在才會建立
 		String[] user = { "root", "123456" };
+		String[] user2 = { "odise", "116025" };
+		String[] user3 = { "oxygen", "987654" };
 		if (!chkUser(user[0]))
 			createUser(user);
+		if (!chkUser(user[1]))
+			createUser(user2);
+		if (!chkUser(user[2]))
+			createUser(user3);
 
 	}
 
@@ -102,6 +109,27 @@ public class Server2 {
 			System.out.println(e.getMessage());
 		}
 		return true;
+	}
+
+	public ArrayList<String> query(String value) {//模糊搜尋
+
+		try {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM example.login WHERE USERNAME LIKE ?");
+			ps.setObject(1, "%" + value + "%");
+			ResultSet rs = ps.executeQuery();
+			ArrayList<String> arr = new ArrayList<>();
+			while (rs.next()) {
+				arr.add(rs.getString(1));
+			}
+			return arr;
+		} catch (
+
+		SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+			return null;
+		}
+
 	}
 
 }
