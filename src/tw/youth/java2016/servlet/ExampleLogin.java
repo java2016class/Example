@@ -2,6 +2,7 @@ package tw.youth.java2016.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +40,10 @@ public class ExampleLogin extends HttpServlet {
 		// TODO Auto-generated method stub
 		// 直接讀取Servlet時會秀這段
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		// get的中文編碼問題要使用下列方法處理
+		String name = new String(request.getParameter("name").getBytes("ISO-8859-1"), "UTF-8");
+
 	}
 
 	/**
@@ -54,6 +59,17 @@ public class ExampleLogin extends HttpServlet {
 
 		// 設定擷取的網頁編碼為UTF-8，與網頁端編碼一致就不會有亂碼問題
 		request.setCharacterEncoding("UTF-8");
+
+		// 取得路徑
+		String path = request.getContextPath();
+		System.out.println(path);
+
+		// 取得表頭參數
+		Enumeration<String> names = request.getHeaderNames();
+		String name;
+		while ((name = names.nextElement()) != null) {
+			System.out.println(name);
+		}
 
 		// 擷取網頁傳遞來的user跟pass參數
 		String[] user = { request.getParameter("user"), request.getParameter("pass") };
