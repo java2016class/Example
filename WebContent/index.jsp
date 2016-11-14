@@ -21,7 +21,8 @@ button 傳遞類型為submit，主要做將form表單內包裹的資料傳送給
 	<form action="ExampleLogin" method="post">
 		<input type="text" name="user" placeholder="請輸入帳號" /> <br> <input
 			type="password" name="pass" /> <br>
-		<button type="submit">送出</button>
+		<button type="submit" name="login" value="login">送出</button>
+		<button type="submit" name="reg" value="redirect">註冊</button>
 	</form>
 
 </body>

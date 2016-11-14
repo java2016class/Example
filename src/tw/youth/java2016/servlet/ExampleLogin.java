@@ -72,23 +72,35 @@ public class ExampleLogin extends HttpServlet {
 		}
 
 		// 擷取網頁傳遞來的user跟pass參數
+		String login = request.getParameter("login");
+		String reg = request.getParameter("reg");
+		System.out.println(login + " " + reg);
+
 		String[] user = { request.getParameter("user"), request.getParameter("pass") };
 
 		// 設定轉傳遞給其他網頁的參數，這裡設定屬性值含有user跟pass參數
 		request.setAttribute("user", user[0]);
 		request.setAttribute("pass", user[1]);
 
-		// 使用驗證使用者功能，確認帳號密碼是否正確?
-		// 若正確就傳遞給success.jsp網頁並跳轉，若不正確就傳遞給failure.jsp網頁並跳轉
-		if (server.chkLogin(user)) {
-			ArrayList<String> arr = server.query("o");
-			for (String string : arr) {
-				System.out.println(string);
+		if (login != null) {// 如果按的是index.jsp的送出按鈕
+
+			// 使用驗證使用者功能，確認帳號密碼是否正確?
+			// 若正確就傳遞給success.jsp網頁並跳轉，若不正確就傳遞給failure.jsp網頁並跳轉
+			if (server.chkLogin(user)) {
+				ArrayList<String> arr = server.query("o");
+				for (String string : arr) {
+					System.out.println(string);
+				}
+				request.setAttribute("query", server.query("o")); // 模糊搜尋含有o字眼的資料
+				request.getRequestDispatcher("/success.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/failure.jsp").forward(request, response);
 			}
-			request.setAttribute("query", server.query("o")); // 模糊搜尋含有o字眼的資料
-			request.getRequestDispatcher("/success.jsp").forward(request, response);
+		} else if (reg.equals("redirect")) {
+			request.getRequestDispatcher("/reg.jsp").forward(request, response);
 		} else {
-			request.getRequestDispatcher("/failure.jsp").forward(request, response);
+			server.createUser(user);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 
 	}
